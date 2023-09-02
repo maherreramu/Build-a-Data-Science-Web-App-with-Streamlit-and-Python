@@ -12,3 +12,6 @@ docker-build:
 
 docker-run:
 	docker run --name streamlit-app -d -p 80:80 streamlit-app
+
+test:
+	python -m pytest -vv test_main.py
