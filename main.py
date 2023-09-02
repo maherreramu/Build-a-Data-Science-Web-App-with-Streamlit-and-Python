@@ -12,29 +12,26 @@ dir = "assets"
 
 st.set_page_config(layout="wide")
 
-DATA_PATH = "app\\assets\\Motor_Vehicle_Collisions_-_Crashes.csv"
-
 st.title("Motor Vehicle Collisions in New York City")
 
 message = st.empty()
 
-if not os.path.exists("app\\"+dir+'\\'+filename):
+if not os.path.exists(dir+'\\'+filename):
     message.markdown("## Downloading data, please wait...")
-    os.chdir("app")
+
     if not os.path.exists(dir):
         os.makedirs(dir)
 
     response = requests.get(URL)
     with open(os.path.join(dir, filename), "wb") as f:
         f.write(response.content)
-    os.chdir("..")
     message.empty()
 
 st.markdown("This application is a Streamlit dashboard that can be used to analyze motor vehicle collisions in NYC 🗽💥🚗")
 
 @st.cache_data
 def load_data(nrows):
-    data = pd.read_csv(DATA_PATH, nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
+    data = pd.read_csv(f"{dir}/{filename}", nrows=nrows, parse_dates=[['CRASH_DATE', 'CRASH_TIME']])
     data.dropna(subset=['LATITUDE', 'LONGITUDE'], inplace=True)
     lowercase = lambda x: str(x).lower()
     data.rename(lowercase, axis='columns', inplace=True)

@@ -2,7 +2,7 @@ install:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 run:
-	streamlit run app/main.py
+	streamlit run main.py
 
 format:
 	black *.py
