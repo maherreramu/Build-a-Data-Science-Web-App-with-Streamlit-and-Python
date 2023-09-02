@@ -12,13 +12,13 @@ dir = "assets"
 
 st.set_page_config(layout="wide")
 
-DATA_PATH = "app\\assets\\Motor_Vehicle_Collisions_-_Crashes.csv"
+DATA_PATH = "app/assets/Motor_Vehicle_Collisions_-_Crashes.csv"
 
 st.title("Motor Vehicle Collisions in New York City")
 
 message = st.empty()
 
-if not os.path.exists("app\\"+dir+'\\'+filename):
+if not os.path.exists("app/"+dir+'/'+filename):
     message.markdown("## Downloading data, please wait...")
     os.chdir("app")
     if not os.path.exists(dir):
