@@ -3,12 +3,33 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import plotly.express as px
+import requests
+import os
+
+URL = "https://onedrive.live.com/download?resid=A1713A394956E0C2%21359951&authkey=!APknJv0azBo6ZaM"
+filename = "Motor_Vehicle_Collisions_-_Crashes.csv"
+dir = "assets"
 
 st.set_page_config(layout="wide")
 
 DATA_PATH = "app\\assets\\Motor_Vehicle_Collisions_-_Crashes.csv"
 
 st.title("Motor Vehicle Collisions in New York City")
+
+message = st.empty()
+
+if not os.path.exists("app\\"+dir+'\\'+filename):
+    message.markdown("## Downloading data, please wait...")
+    os.chdir("app")
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
+    response = requests.get(URL)
+    with open(os.path.join(dir, filename), "wb") as f:
+        f.write(response.content)
+    os.chdir("..")
+    message.empty()
+
 st.markdown("This application is a Streamlit dashboard that can be used to analyze motor vehicle collisions in NYC 🗽💥🚗")
 
 @st.cache_data
